@@ -20,7 +20,6 @@ export class NoteListComponent implements OnInit {
     this.noteService.delete(id);
   }
   filter(query: string){
-    console.log(query);
     let allResults: Note[] = new Array<Note>();
     query = query.toLowerCase().trim();
     let words: string[] = query.split(' ');//splits into words when there is a space

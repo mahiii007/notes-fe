@@ -43,7 +43,6 @@ export class NoteDetailsComponent implements OnInit {
   this.router.navigateByUrl('/');
   }
   cancel(){
-    console.log(this.note);
     this.router.navigateByUrl('/');
   }
 
