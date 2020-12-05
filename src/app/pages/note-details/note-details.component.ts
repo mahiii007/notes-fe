@@ -1,7 +1,7 @@
 import { NgForOf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Note } from 'src/app/shared/notes.model';
 import { NotesService } from 'src/app/shared/notes.service';
 
@@ -13,18 +13,37 @@ import { NotesService } from 'src/app/shared/notes.service';
 export class NoteDetailsComponent implements OnInit {
 
   note : Note;
-  constructor( private noteService : NotesService, private router : Router) { }
+  noteId : number;
+  new : boolean
+  constructor( private noteService : NotesService, private router : Router, private route : ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.params.subscribe((params: Params)=>{
     this.note = new Note();
+      if(params.id){
+        this.note = this.noteService.get(params.id)
+        this.noteId = params.id;
+        this.new = false;
+      }
+      else{
+        this.new = true;
+      }
+
+    })
+
   }
 
   onSubmit(form : NgForm){
   // console.log(form);
+  if(this.new){
     this.noteService.add(form.value);
-    this.router.navigateByUrl('/');
+  }else{
+    this.noteService.update(this.noteId, this.note.title, this.note.body )
+  }
+  this.router.navigateByUrl('/');
   }
   cancel(){
+    console.log(this.note);
     this.router.navigateByUrl('/');
   }
 

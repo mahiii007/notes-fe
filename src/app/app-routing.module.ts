@@ -9,7 +9,9 @@ const routes: Routes = [
 
   {path:'', component:MainLayoutComponent, children:[
     {path:'',component:NoteListComponent},
+    {path:'new', component: NoteDetailsComponent},
     {path:':id', component: NoteDetailsComponent}
+
   ]} 
 ];
 

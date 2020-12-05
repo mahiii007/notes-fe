@@ -22,9 +22,12 @@ export class NotesService {
   }
 
   add(note : Note){
+    if(note){
     let newLength = this.notes.push(note);
     let index = newLength - 1;
     return index;
+    }
+    
   }
   update(id : number , title : String , body : String){
     let note = this.notes[id];
